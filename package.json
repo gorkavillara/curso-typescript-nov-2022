@@ -1,0 +1,22 @@
+{
+  "name": "curso-typescript",
+  "version": "0.0.1",
+  "description": "Primer proyecto del curso de typescript",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run compile && npm run execute",
+    "compile": "tsc",
+    "execute": "node build/primer-archivo.js"
+  },
+  "keywords": [
+    "typescript",
+    "node",
+    "curso-typescript"
+  ],
+  "author": "Gorka Villar",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "typescript": "^4.9.3"
+  }
+}
