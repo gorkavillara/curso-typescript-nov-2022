@@ -7,7 +7,8 @@
     "start": "npm run execute",
     "prestart": "npm run compile",
     "compile": "tsc",
-    "execute": "node build/index.js"
+    "execute": "node build/index.js",
+    "dev": "tsc --watch"
   },
   "keywords": [
     "typescript",
