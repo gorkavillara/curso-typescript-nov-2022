@@ -1,18 +1,34 @@
-// Qué son las cookies
-// document.cookie = "nombre=Gorka;expires=Tue, 29 Nov 2022 12:50:00 GMT"
-// const now = new Date()
-// console.log(now.toUTCString())
-// document.cookie = "nombre=Gorka;max-age=86400"
-
-const valor = {
-    nombre: "Miguel"
+// Local Storage y Session Storage
+type Alumno = {
+    nombre: string
+    apellido: string
+    edad: number
 }
 
-const now = new Date()
-const expirationDate = new Date(now.getTime() + 24 * 60 * 60)
+const yo: Alumno = {
+    nombre: "Gorka",
+    apellido: "Villar",
+    edad: 24
+}
 
-document.cookie = `${Object.keys(valor)[0]}=${valor.nombre};expires=${expirationDate.toUTCString()}`
+// localStorage.setItem("yo", yo.nombre)
 
-// console.log(document.cookie) // Para obtener la información
+// console.log(localStorage.getItem("yo"))
 
-//////////////////
+// localStorage.setItem("yo", JSON.stringify(yo))
+
+// console.log(localStorage.getItem("yo"))
+// console.log(JSON.parse(localStorage.getItem("yo")).nombre)
+
+// localStorage.removeItem("yo")
+
+// localStorage.clear()
+
+sessionStorage.setItem("yo", JSON.stringify(yo))
+
+console.log(sessionStorage.getItem("yo"))
+console.log(JSON.parse(sessionStorage.getItem("yo")).nombre)
+
+sessionStorage.removeItem("yo")
+
+sessionStorage.clear()
