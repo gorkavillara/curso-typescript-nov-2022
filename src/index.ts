@@ -1,34 +1,51 @@
-// Local Storage y Session Storage
 type Alumno = {
-    nombre: string
-    apellido: string
-    edad: number
+    nombre: string,
+    apellido: string,
+    dni: string
+}
+
+const database: IDBFactory = window.indexedDB
+let db: IDBDatabase
+let objectStore: IDBObjectStore;
+// let objectStore2;
+
+if (database) {
+    const request = database.open("tareasDB", 2)
+
+    request.onupgradeneeded = () => {
+        db = request.result
+        console.log("DB abierta", db)
+        objectStore = db.createObjectStore("tareas", {
+            autoIncrement: true
+        })
+        // objectStore2 = db.createObjectStore("tareas2")
+    }
+
+    request.onsuccess = () => {
+        db = request.result
+        console.log("DB obtenida con éxito")
+        // objectStore = db.createObjectStore("tareas")
+    }
+
+    request.onerror = error => console.log(error)
 }
 
 const yo: Alumno = {
     nombre: "Gorka",
     apellido: "Villar",
-    edad: 24
+    dni: "12345678H"
 }
 
-// localStorage.setItem("yo", yo.nombre)
+const nuevoAlumno = (alumno: Alumno) => {
+    const trans = db.transaction(["tareas"], "readwrite")
+    const transObjectStore = trans.objectStore("tareas")
+    const req = transObjectStore.add(alumno)
 
-// console.log(localStorage.getItem("yo"))
+    req.addEventListener("success", e => console.log("Éxito", e))
+}
 
-// localStorage.setItem("yo", JSON.stringify(yo))
+const boton_add = document.querySelector("button.btn-indexdb") as HTMLButtonElement
 
-// console.log(localStorage.getItem("yo"))
-// console.log(JSON.parse(localStorage.getItem("yo")).nombre)
-
-// localStorage.removeItem("yo")
-
-// localStorage.clear()
-
-sessionStorage.setItem("yo", JSON.stringify(yo))
-
-console.log(sessionStorage.getItem("yo"))
-console.log(JSON.parse(sessionStorage.getItem("yo")).nombre)
-
-sessionStorage.removeItem("yo")
-
-sessionStorage.clear()
+boton_add.onclick = () => {
+    nuevoAlumno(yo)
+}
