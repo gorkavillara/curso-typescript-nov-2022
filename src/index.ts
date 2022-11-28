@@ -1,42 +1,62 @@
-// const boton = document.querySelector("button#btn-info")
-const boton = document.getElementById("btn-info")! as HTMLButtonElement
-
-console.log(boton.innerHTML)
-
-// boton.addEventListener("click", (e: MouseEvent) => {
-//     console.log(e)
-// })
-
-boton.onclick = (e: MouseEvent) => {
-  console.log(e)
+type Tarea = {
+  texto: string
 }
 
-const clickButton = () => console.log("Hola mundo")
+const boton = document.querySelector(".btn-nueva-tarea")! as HTMLButtonElement
+const input_nueva_tarea = document.querySelector(
+  "input.input-nueva-tarea"
+)! as HTMLInputElement
+const tareas_div = document.querySelector("div.listado")
+const tareas: Tarea[] = []
 
-// const form = document.getElementById("formulario") as HTMLFormElement
-// const form = document.getElementsByClassName("formulario")[0]
-const form: HTMLFormElement = document.querySelector("form#formulario")
-
-form.onsubmit = (e: SubmitEvent) => {
-  e.preventDefault()
-  checkValidation()
-  console.log(e)
+boton.onclick = () => {
+  const nueva_tarea = input_nueva_tarea.value
+  if (nueva_tarea === "") return
+  // Añadir la nueva tarea al storage
+  nuevaTareaStorage(nueva_tarea)
+  tareas.push({ texto: nueva_tarea })
+  imprimeTarea(nueva_tarea, tareas.length)
 }
 
-const input: HTMLInputElement = document.querySelector("input#input-nombre")
-
-const validationFail = () => {
-  input.style.color = "red"
-//   document.body.append(document.createTextNode("Error"))
+const imprimeTarea = (tarea: string, index: number) => {
+  const tarea_div = document.createElement("div")
+  tarea_div.className = "tarea"
+  const input_tarea = document.createElement("input")
+  input_tarea.type = "checkbox"
+  input_tarea.name = `tarea-${index}`
+  input_tarea.id = `tarea-${index}`
+  const label_tarea = document.createElement("label")
+  label_tarea.htmlFor = `tarea-${index}`
+  label_tarea.innerText = tarea
+  tarea_div.appendChild(input_tarea)
+  tarea_div.appendChild(label_tarea)
+  tareas_div.appendChild(tarea_div)
 }
-const validationPass = () => {
-  input.style.color = "green"
-//   document.body.append(document.createTextNode("Todo correcto"))
+
+const nuevaTareaStorage = (tarea: string) => {
+  const tareas_almacenadas_storage: string | null =
+    localStorage.getItem("tareas")
+  const tareas_almacenadas: Tarea[] | null =
+    tareas_almacenadas_storage === null
+      ? [{ texto: tarea }]
+      : [...JSON.parse(tareas_almacenadas_storage), { texto: tarea }]
+  console.log(tareas_almacenadas)
+  localStorage.setItem("tareas", JSON.stringify(tareas_almacenadas))
 }
 
-const checkValidation = () =>
-  input.value.length < 4 ? validationFail() : validationPass()
-
-input.onchange = (e) => {
-  checkValidation()
+const obtenTareasStorage = () => {
+  const tareas_almacenadas_storage: string | null =
+    localStorage.getItem("tareas")
+  console.log(tareas_almacenadas_storage)
+  if (tareas_almacenadas_storage === null) return
+  // Uno por uno imprimirlos por pantalla
+  return JSON.parse(tareas_almacenadas_storage)
 }
+
+const inicializar = () => {
+  // Obtener los datos del storage
+  const tareas_almacenadas: Tarea[] = obtenTareasStorage()
+  tareas_almacenadas !== null && tareas_almacenadas.forEach((tarea, index) => imprimeTarea(tarea.texto, index))
+}
+
+inicializar()
