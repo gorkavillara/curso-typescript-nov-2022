@@ -1,0 +1,25 @@
+{
+  "name": "crm-terminal",
+  "version": "1.0.0",
+  "description": "CRM creado con Typescript a través de terminal",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gorkavillara/curso-typescript-nov-2022.git"
+  },
+  "keywords": [
+    "crm",
+    "typescript",
+    "ts",
+    "terminal"
+  ],
+  "author": "Comillas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gorkavillara/curso-typescript-nov-2022/issues"
+  },
+  "homepage": "https://github.com/gorkavillara/curso-typescript-nov-2022#readme"
+}

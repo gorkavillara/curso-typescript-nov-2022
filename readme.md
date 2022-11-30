@@ -6,3 +6,4 @@ El CLI utiliza las siguientes funcionalidades/librerías:
 - "inquirer": Para crear interactividad en el terminal
 - "chalk": Para dar estilos en el terminal
 - "eslint": Para asegurar un código homogéneo a lo largo de todo el proyecto
+- "nanospinner": Para los tiempos de espera
