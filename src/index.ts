@@ -1,38 +1,22 @@
-class Persona {
-  nombre: string
-  edad: number
-  constructor(n: string, e: number) {
-    this.nombre = n
-    this.edad = e
-  }
+// Proyecto
+// Agenda CRM -> CRUD de clientes
+// Clase de cliente
+import { Cliente } from "./modelos/cliente"
+import chalk from "chalk"
+import inquirer from "inquirer"
+import axios from "axios"
 
-  saluda() {
-    console.log(`Hola! Mi nombre es ${this.nombre} y tengo ${this.edad} años`)
-  }
-}
+console.log(chalk.bgBlue("Bienvenid@ al CRM de TypeScript"))
 
-class Alumno extends Persona {
-  lenguaje_favorito: string
-  nota: number
-  constructor(nombre: string, edad: number, lenguaje?: string) {
-    super(nombre, edad) // Constructor de la clase padre
-    // console.log(lenguaje)
-    this.lenguaje_favorito = lenguaje ? lenguaje : "Typescript"
-  }
-
-  saluda() {
-    console.log(
-      `Hola! Mi nombre es ${this.nombre}, soy un alumno, tengo ${this.edad} años y mi lenguaje favorito es ${this.lenguaje_favorito}`
-    )
-  }
-
-  dimeCualEsTuLenguajeFavorito() {
-    console.log(`Mi lenguaje favorito es ${this.lenguaje_favorito}`)
-  }
-}
-
-const pers1 = new Persona("Gorka", 33)
-const alumno = new Alumno("Gorka", 66)
-
-alumno.saluda()
-pers1.saluda()
+inquirer.prompt([
+    {
+        message: "Cuál es tu lenguaje favorito",
+        name: "lenguaje_favorito",
+        default: 'Typescript'
+    },
+    {
+        message: "Qué es la función que más te gusta de Typescript",
+        choices: ["Los tipos", "Las clases", "El compilado automático"],
+        name: "funcionalidad_favorita_ts"
+    }
+]).then(answers => console.log(answers))
