@@ -1,8 +1,15 @@
-# Primer proyecto general del curso de TypeScript
-## CRM de clientes basado en CLI
-Crearemos un CLI (Command Line Interface) que nos servirá como CRM para gestionar nuestra base de datos de clientes.
-El CLI utiliza las siguientes funcionalidades/librerías:
-- "axios": Para realizar el CRUD
-- "inquirer": Para crear interactividad en el terminal
-- "chalk": Para dar estilos en el terminal
-- "eslint": Para asegurar un código homogéneo a lo largo de todo el proyecto
+# Comandos de GIT
+## Clonar proyecto
+git clone https://github.com/gorkavillara/curso-typescript-nov-2022/
+
+## Trabajando con git
+### Añadir archivos a la rama
+git add .
+### Crear un nuevo commit
+git commit -m "Aquí viene tu mensaje"
+### Subir la rama al repositorio
+git push origin "nombre-de-la-rama"
+### Cambiar de rama
+git checkout "nombre-de-la-nueva-rama"
+### Crear nueva rama y moverse a ella
+git checkout -B "nombre-de-la-nueva-rama"
