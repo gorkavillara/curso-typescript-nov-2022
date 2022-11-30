@@ -1,6 +1,6 @@
 # Comandos de GIT
 ## Clonar proyecto
-git clone https://github.com/gorkavillara/curso-typescript-nov-2022/
+git clone https://github.com/gorkavillara/curso-typescript-nov-2022/ .
 
 ## Trabajando con git
 ### Añadir archivos a la rama
