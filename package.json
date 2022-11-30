@@ -4,7 +4,8 @@
   "description": "CRM creado con Typescript a través de terminal",
   "main": "src/index.js",
   "scripts": {
-    "tsc:init": "tsc --init"
+    "tsc:init": "tsc --init",
+    "compile": "tsc"
   },
   "repository": {
     "type": "git",
