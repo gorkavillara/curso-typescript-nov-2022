@@ -1,6 +1,8 @@
 import chalk from "chalk";
 import inquirer from "inquirer";
 
+import { listaClientes } from "./controladores/controlador-cliente.js";
+
 export const menuPrincipal = async () => {
   let seguir_menu: boolean = true;
   // Dar la bienvenida
@@ -25,6 +27,9 @@ export const menuPrincipal = async () => {
 
     if (preguntaPrincipal.pregunta_principal === "0 - SALIR") {
         return seguir_menu = false
+    } else if (preguntaPrincipal.pregunta_principal === "1 - Listar todos los clientes") {
+        // Lista todos los clientes
+        listaClientes()
     }
   }
 };
