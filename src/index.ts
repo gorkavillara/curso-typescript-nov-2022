@@ -1,7 +1,7 @@
-import chalk from "chalk" // ES6 Modules
+// import chalk from "chalk" // ES6 Modules
 // const chalk = require("chalk") // CommonJS
 
-console.log(chalk.bgBlueBright("Hola desde Typescript"))
+import { menuPrincipal } from "./menu.js";
 
-// CommonJS => require('chalk')
-// ESmodules => import ...
+// Lanzar nuestro "menú principal"
+menuPrincipal()
