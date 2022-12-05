@@ -9,7 +9,9 @@
     "execute": "node build/index.js",
     "tsc:init": "tsc --init",
     "compile": "tsc",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "lint": "eslint src/**",
+    "fix": "eslint src/** --fix"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,13 @@
     "@types/chalk": "^2.2.0",
     "@types/inquirer": "^9.0.3",
     "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "eslint": "^8.29.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.6.0",
+    "eslint-plugin-promise": "^6.1.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
