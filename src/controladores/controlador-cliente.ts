@@ -10,7 +10,7 @@ export const obtenClientes: () => Promise<Cliente[]> = async () => {
 	const url: string = "https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
 	// Utilizaremos axios para obtener la info
 	const respuesta: AxiosResponse = await axios.get(url)
-	console.log(respuesta.data.clientes)
+	// console.log(respuesta.data.clientes)
 	return respuesta.data.clientes
 }
 
@@ -21,9 +21,6 @@ export const listaClientes: () => Promise<void> = async () => {
 	// Obtener todos los clientes
 	const clientes: Cliente[] = await obtenClientes()
 	console.log("\n")
-	console.log("\n")
-	console.log("\n")
-	console.log("<input type='button'>Botón</input>")
 	// Sacarnos por pantalla todos los clientes
 	clientes.forEach((cliente: Cliente) =>
 		console.log(`${cliente.nombre} => Email ${cliente.email}`)
