@@ -3,7 +3,7 @@
 import chalk from "chalk"
 import inquirer from "inquirer"
 
-import { listaClientes } from "./controladores/controlador-cliente.js"
+import { listaClientes, nuevoCliente } from "./controladores/controlador-cliente.js"
 
 export const menuPrincipal = async () => {
 	let seguir_menu: boolean = true
@@ -15,6 +15,7 @@ export const menuPrincipal = async () => {
 	while (seguir_menu) {
 		console.log(chalk.blueBright("¿Qué tipo de cosas quieres hacer?"))
 		const preguntaPrincipal = await inquirer.prompt({
+			message: "Elige una opción",
 			type: "list",
 			choices: [
 				"1 - Listar todos los clientes",
@@ -25,7 +26,7 @@ export const menuPrincipal = async () => {
 			],
 			name: "pregunta_principal" // eslint-disable-line comma-dangle
 		})
-		console.log(`La respuesta ha sido ${preguntaPrincipal.pregunta_principal}`)
+		// console.log(`La respuesta ha sido ${preguntaPrincipal.pregunta_principal}`)
 
 		if (preguntaPrincipal.pregunta_principal === "0 - SALIR") {
 			return (seguir_menu = false)
@@ -33,7 +34,9 @@ export const menuPrincipal = async () => {
 			preguntaPrincipal.pregunta_principal === "1 - Listar todos los clientes"
 		) {
 			// Lista todos los clientes
-			listaClientes()
+			await listaClientes()
+		} else if (preguntaPrincipal.pregunta_principal === "2 - Añadir un nuevo cliente") {
+			await nuevoCliente()
 		}
 	}
 }
