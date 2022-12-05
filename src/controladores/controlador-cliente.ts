@@ -5,17 +5,13 @@ import { Cliente } from "../models/cliente.js"
 /**
  * obtenClientes -> Devuelve un listado de clientes
  */
-const obtenClientes: () => Promise<Cliente[]> = async () => {
-	const url: string = "https://rickandmortyapi.com/api/character/1"
+export const obtenClientes: () => Promise<Cliente[]> = async () => {
+	// const url: string = "https://rickandmortyapi.com/api/character/1"
+	const url: string = "https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
 	// Utilizaremos axios para obtener la info
 	const respuesta: AxiosResponse = await axios.get(url)
-	const info = respuesta.data
-	const nombre = info.name
-	const email = `${info.name}@${info.name}.com`
-
-	const cliente: Cliente = new Cliente(nombre, email)
-
-	return [cliente]
+	console.log(respuesta.data.clientes)
+	return respuesta.data.clientes
 }
 
 /**
