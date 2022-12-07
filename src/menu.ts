@@ -3,7 +3,10 @@
 import chalk from "chalk"
 import inquirer from "inquirer"
 
-import { listaClientes, nuevoCliente } from "./controladores/controlador-cliente.js"
+import {
+	listaClientes,
+	nuevoCliente
+} from "./controladores/controlador-cliente.js"
 
 export const menuPrincipal = async () => {
 	let seguir_menu: boolean = true
@@ -35,7 +38,9 @@ export const menuPrincipal = async () => {
 		) {
 			// Lista todos los clientes
 			await listaClientes()
-		} else if (preguntaPrincipal.pregunta_principal === "2 - Añadir un nuevo cliente") {
+		} else if (
+			preguntaPrincipal.pregunta_principal === "2 - Añadir un nuevo cliente"
+		) {
 			await nuevoCliente()
 		}
 	}

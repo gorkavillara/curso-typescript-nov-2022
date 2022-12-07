@@ -8,3 +8,13 @@ import { menuPrincipal } from "./menu.js"
 menuPrincipal()
 
 // obtenClientes()
+
+// genera un spinner
+// import { createSpinner } from "nanospinner"
+
+// const spinner = createSpinner("Probando el spinner")
+
+// spinner.start()
+// setTimeout(() => {
+// 	spinner.success()
+// }, 3000)

@@ -1,16 +1,18 @@
 import axios, { AxiosResponse } from "axios"
 import chalk from "chalk"
 import inquirer from "inquirer"
+import { createSpinner } from "nanospinner"
 
 import { Cliente } from "../models/cliente.js"
+
+const url: string =
+	"https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
 
 /**
  * obtenClientes -> Devuelve un listado de clientes
  */
 export const obtenClientes: () => Promise<Cliente[]> = async () => {
 	// const url: string = "https://rickandmortyapi.com/api/character/1"
-	const url: string =
-		"https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
 	// Utilizaremos axios para obtener la info
 	const respuesta: AxiosResponse = await axios.get(url)
 	// console.log(respuesta.data.clientes)
@@ -71,10 +73,36 @@ export const nuevoCliente = async () => {
 			name: "seguir_pregunta"
 		})
 		if (seguirPregunta.seguir_pregunta === "s") {
+			const altaSpinner = createSpinner("Dando de alta el nuevo cliente")
+			altaSpinner.start()
+
 			valido = true
 			// crear el nuevo cliente
-			const cliente: Cliente = new Cliente(preguntaNuevoCliente.nombre_cliente, preguntaEmailCliente.email_cliente)
-			// dar de alta el nuevo cliente
+			const cliente: Cliente = new Cliente(
+				preguntaNuevoCliente.nombre_cliente,
+				preguntaEmailCliente.email_cliente,
+				preguntaDireccionCliente.direccion_cliente,
+				preguntaTelefonoCliente.telefono_cliente
+			)
+			// dar de alta el nuevo cliente => endpoint
+			// 1 - AXIOS - La llamada es de tipo POST
+			// 2 - body tiene que tener lo siguiente
+			// 			- action: "nuevoCliente"
+			// 			- cliente: cliente
+			axios
+				.post(url, {
+					action: "nuevoCliente123",
+					cliente
+				})
+				.then(res => {
+					// console.log(res)
+					altaSpinner.success()
+				})
+				.catch(err => {
+					console.error(err)
+					altaSpinner.error()
+				})
+			// gestionar la asincronía (async await, then)
 		}
 	} while (!valido)
 }
