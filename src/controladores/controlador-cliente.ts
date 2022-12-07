@@ -89,20 +89,27 @@ export const nuevoCliente = async () => {
 			// 2 - body tiene que tener lo siguiente
 			// 			- action: "nuevoCliente"
 			// 			- cliente: cliente
-			axios
-				.post(url, {
-					action: "nuevoCliente123",
-					cliente
-				})
-				.then(res => {
-					// console.log(res)
-					altaSpinner.success()
-				})
-				.catch(err => {
-					console.error(err)
-					altaSpinner.error()
-				})
+			// axios
+			// 	.post(url, {
+			// 		action: "nuevoCliente",
+			// 		cliente
+			// 	})
+			// 	.then(res => {
+			// 		// console.log(res)
+			// 		altaSpinner.success()
+			// 	})
+			// 	.catch(err => {
+			// 		console.error(err)
+			// 		altaSpinner.error()
+			// 	})
 			// gestionar la asincronía (async await, then)
+			const respuesta: void | AxiosResponse<any, any> = await axios.post(url, { action: "nuevoCliente", cliente }).catch(e => {
+				console.error(e)
+				altaSpinner.error({ text: "Error al dar de alta el cliente" })
+			})
+			if (respuesta && respuesta.status === 200) {
+				altaSpinner.success({ text: respuesta.data.message })
+			}
 		}
 	} while (!valido)
 }
