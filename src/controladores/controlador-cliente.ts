@@ -6,6 +6,12 @@ import { createSpinner } from "nanospinner"
 import { Cliente } from "../models/cliente.js"
 import { obtenIndice } from "./utils.js"
 
+interface databaseId {
+	id: string
+}
+
+type databaseClient = Cliente & databaseId
+
 const url: string =
 	"https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
 
@@ -119,7 +125,7 @@ export const nuevoCliente = async () => {
 export const eliminaCliente = async (): Promise<void> => {
 	// Mostrar el prompt con todos los clientes
 	const respuesta: AxiosResponse = await axios.get(url)
-	const clientes = respuesta.data.clientes as Cliente[]
+	const clientes = respuesta.data.clientes as databaseClient[]
 	// Seleccionar uno de ellos, con flechas y enter
 	const opcionesClientes: string[] = clientes.map(
 		(cliente: Cliente, index: number) => {
@@ -133,8 +139,25 @@ export const eliminaCliente = async (): Promise<void> => {
 		name: "cliente_eliminar"
 	})
 	// console.log(clienteEliminar.cliente_eliminar)
+	const spinnerEliminar = createSpinner("Eliminando cliente")
+	spinnerEliminar.start()
 	const indice = obtenIndice(clienteEliminar.cliente_eliminar)
 
-	console.log(clientes[indice])
+	// console.log(clientes[indice])
 	// Hacemos la llamada al endpoint y lo eliminamos
+	// Llamada tipo POST => endpoint
+	const respuestaEliminar: void | AxiosResponse<any, any> = await axios.post(url, {
+		action: "eliminaCliente",
+		id: clientes[indice].id
+	}).catch(err => {
+		console.error(err)
+		spinnerEliminar.error({ text: "Error al eliminar el cliente" })
+	})
+	if (respuestaEliminar && respuestaEliminar.status === 200) {
+		spinnerEliminar.success({ text: respuestaEliminar.data.message })
+	} else {
+		spinnerEliminar.clear()
+	}
+	// body - action: "eliminaCliente", id: "......"
+	// (Opcional) Gestionamos la asincronía y ponemos el spinner
 }
