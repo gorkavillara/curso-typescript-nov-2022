@@ -5,7 +5,8 @@ import inquirer from "inquirer"
 
 import {
 	listaClientes,
-	nuevoCliente
+	nuevoCliente,
+	eliminaCliente
 } from "./controladores/controlador-cliente.js"
 
 export const menuPrincipal = async () => {
@@ -42,6 +43,20 @@ export const menuPrincipal = async () => {
 			preguntaPrincipal.pregunta_principal === "2 - Añadir un nuevo cliente"
 		) {
 			await nuevoCliente()
+		} else if (
+			preguntaPrincipal.pregunta_principal === "3 - Editar un cliente en concreto"
+		) {
+			// await nuevoCliente()
+		} else if (
+			preguntaPrincipal.pregunta_principal === "4 - Eliminar un cliente"
+		) {
+			await eliminaCliente()
+			// Primero un get -> Listado de todos los clientes que tenemos
+			// Usuario elige -> Hacemos la llamada al endpoint con la info
+			// Llamada tipo post
+			// body
+			//	- action: "eliminaCliente"
+			//	- id: "iddelcliente"
 		}
 	}
 }

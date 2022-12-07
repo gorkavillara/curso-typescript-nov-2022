@@ -4,6 +4,7 @@ import inquirer from "inquirer"
 import { createSpinner } from "nanospinner"
 
 import { Cliente } from "../models/cliente.js"
+import { obtenIndice } from "./utils.js"
 
 const url: string =
 	"https://us-central1-fir-api-a3355.cloudfunctions.net/app/api/clientes"
@@ -103,13 +104,37 @@ export const nuevoCliente = async () => {
 			// 		altaSpinner.error()
 			// 	})
 			// gestionar la asincronía (async await, then)
-			const respuesta: void | AxiosResponse<any, any> = await axios.post(url, { action: "nuevoCliente", cliente }).catch(e => {
-				console.error(e)
-				altaSpinner.error({ text: "Error al dar de alta el cliente" })
-			})
+			const respuesta: void | AxiosResponse<any, any> = await axios
+				.post(url, { action: "nuevoCliente", cliente })
+				.catch((e) => {
+					console.error(e)
+					altaSpinner.error({ text: "Error al dar de alta el cliente" })
+				})
 			if (respuesta && respuesta.status === 200) {
 				altaSpinner.success({ text: respuesta.data.message })
 			}
 		}
 	} while (!valido)
+}
+export const eliminaCliente = async (): Promise<void> => {
+	// Mostrar el prompt con todos los clientes
+	const respuesta: AxiosResponse = await axios.get(url)
+	const clientes = respuesta.data.clientes as Cliente[]
+	// Seleccionar uno de ellos, con flechas y enter
+	const opcionesClientes: string[] = clientes.map(
+		(cliente: Cliente, index: number) => {
+			return `${index + 1}. ${cliente.nombre} - ${cliente.email}`
+		}
+	)
+	// workaround
+	const clienteEliminar = await inquirer.prompt({
+		type: "list",
+		choices: opcionesClientes,
+		name: "cliente_eliminar"
+	})
+	// console.log(clienteEliminar.cliente_eliminar)
+	const indice = obtenIndice(clienteEliminar.cliente_eliminar)
+
+	console.log(clientes[indice])
+	// Hacemos la llamada al endpoint y lo eliminamos
 }
