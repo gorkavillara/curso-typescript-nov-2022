@@ -47,6 +47,15 @@ export const menuPrincipal = async () => {
 			preguntaPrincipal.pregunta_principal === "3 - Editar un cliente en concreto"
 		) {
 			// await nuevoCliente()
+			// Primero un get -> Listado de todos los clientes que tenemos
+			// Usuario elige
+			// Mostramos un prompt con la información a cambiar
+			// El prompt debe tener por defecto la información actual
+			// Llamada tipo post
+			// body
+			//	- action: "actualizaCliente"
+			//	- id: "iddelcliente"
+			//	- cliente: toda la info del cliente
 		} else if (
 			preguntaPrincipal.pregunta_principal === "4 - Eliminar un cliente"
 		) {
